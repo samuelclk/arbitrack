@@ -20,7 +20,8 @@
 - [!] **0.10** `apps/worker/src/db/client.ts` — pg pool against `DATABASE_URL`. (deps: 0.8) → verify: `tsx scripts/db-ping.ts` prints "ok"
   BLOCKED: missing env var DATABASE_URL (no .env.local)
 - [ ] **0.11** `apps/worker/db/migrations/0001_init.sql` with all 9 tables from SPEC §4 + `pnpm db:migrate` runner. (deps: 0.10) → verify: `psql $DATABASE_URL -c "\dt"` lists 9 tables
-- [ ] **0.12** `apps/worker/src/chain/clients.ts` — viem clients per chain + multicall3 healthcheck. (deps: 0.7, 0.8) → verify: `tsx scripts/rpc-ping.ts` prints latest block per chain
+- [!] **0.12** `apps/worker/src/chain/clients.ts` — viem clients per chain + multicall3 healthcheck. (deps: 0.7, 0.8) → verify: `tsx scripts/rpc-ping.ts` prints latest block per chain
+  BLOCKED: missing env var ALCHEMY_KEY (no .env.local)
 
 ---
 

@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "shared": "workspace:*",
+    "viem": "^2.21.45"
   },
   "devDependencies": {
     "@types/pg": "^8.11.10",
