@@ -1,4 +1,6 @@
 import { pgPool } from "../../lib/db";
+import { loadSparklinePoints } from "../../lib/sparkline";
+import { Sparkline } from "../../components/Sparkline";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +35,10 @@ const fmtPct = (bps: string | null): string =>
 
 export default async function LendPage() {
   const rows = await loadLatestLendRates();
+  // Lend rollup is keyed by `${asset}-${chain}` per engine/lend.ts
+  const sparks = await Promise.all(
+    rows.map((r) => loadSparklinePoints("lend", `${r.asset}-${r.chain}`)),
+  );
   return (
     <main>
       <h1>Lending rates</h1>
@@ -47,6 +53,7 @@ export default async function LendPage() {
             <th>borrow APR</th>
             <th>LTV</th>
             <th>LLT</th>
+            <th>24h</th>
           </tr>
         </thead>
         <tbody>
@@ -65,6 +72,7 @@ export default async function LendPage() {
               <td>{fmtPct(r.borrow_apr_bps)}</td>
               <td>{fmtPct(r.ltv_bps)}</td>
               <td>{fmtPct(r.llt_bps)}</td>
+              <td><Sparkline points={sparks[idx]} /></td>
             </tr>
           ))}
         </tbody>

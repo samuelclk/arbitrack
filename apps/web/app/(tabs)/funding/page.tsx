@@ -26,6 +26,7 @@ export default function FundingPage() {
             <th>chain</th>
             <th>spread</th>
             <th>APR</th>
+            <th>24h</th>
           </tr>
         </thead>
         <tbody>
