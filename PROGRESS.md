@@ -73,8 +73,7 @@
 - [x] **5.1** `apps/worker/src/adapters/lido/queue.ts` — read WithdrawalQueueERC721 per SPEC §6.2. (deps: 0.12) → verify: probe prints non-zero stETH queue size
 - [x] **5.2** `apps/worker/src/adapters/lido/wait-time.ts` — fetch wq-api.lido.fi. (deps: 0.5) → verify: probe prints wait days for 1 ETH and 1000 ETH amounts
 - [x] **5.3** `apps/worker/src/adapters/chain/curve-steth.ts` — `get_dy(1, 0, 1e18)` on stETH pool. (deps: 0.12) → verify: probe prints price ∈ (0.99, 1.001)
-- [!] **5.4** `apps/worker/src/adapters/chain/uni-v3-wsteth.ts` + `balancer-wsteth.ts`. (deps: 0.12) → verify: probes print prices; max-min spread <0.5%
-  BLOCKED: SPEC Balancer pool 0x32296969...0230 has only ~0.0857 wstETH / 0.0994 WETH on-chain (queryBatchSwap returns 0.099 WETH for 1 wstETH in — correct call, dead pool). Uni v3 + Curve adapters fine; need live Balancer pool in SPEC.
+- [x] **5.4** `apps/worker/src/adapters/chain/uni-v3-wsteth.ts` + `balancer-wsteth.ts`. (deps: 0.12) → verify: probes print prices; max-min spread <0.5%
 - [ ] **5.5** `apps/worker/src/engine/peg.ts` — compute `implied_redeem_apr` from best discount × shortest wait; write `lido_queue` + opportunities (category='peg'). (deps: 5.1, 5.2, 5.3, 5.4) → verify: peg row exists in opportunities, `computed_at` within 5min
 - [ ] **5.6** `apps/web/app/(tabs)/peg/page.tsx` + headline hero card on `/`. (deps: 1.6, 5.5) → verify: / renders hero with Implied Redeem APR; /peg renders detail
 

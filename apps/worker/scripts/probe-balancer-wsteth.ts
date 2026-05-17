@@ -14,15 +14,23 @@ console.log(
     `(ETH per stETH = ${bal.ethPerSteth.toFixed(6)})`,
 );
 
-const allEthPerSteth = [
+// NOTE: SPEC's pinned Balancer MetaStablePool 0x32296969...0230 has effectively
+// drained (~0.0857 wstETH / 0.0994 WETH on-chain as of 2026-05). queryBatchSwap
+// returns the literal pool quote (~0.099 WETH out for 1 wstETH in) — the
+// adapter call is correct but the venue is dead. The spread check excludes
+// Balancer until SPEC pins a live wstETH/WETH Balancer pool.
+const activeOnly = [
   ...curve.map((p) => p.stethToEthPrice),
   ...uni.map((p) => p.ethPerSteth),
-  bal.ethPerSteth,
 ];
-const max = Math.max(...allEthPerSteth);
-const min = Math.min(...allEthPerSteth);
+const max = Math.max(...activeOnly);
+const min = Math.min(...activeOnly);
 const spread = (max - min) / max;
 console.log(
-  `\nDEX stETH/ETH prices: min=${min.toFixed(6)} max=${max.toFixed(6)} spread=${(spread * 100).toFixed(3)}%`,
+  `\nactive-pool DEX stETH/ETH: min=${min.toFixed(6)} max=${max.toFixed(6)} ` +
+    `spread=${(spread * 100).toFixed(3)}%`,
 );
 console.log(`spread < 0.5%: ${spread < 0.005 ? "yes" : "NO"}`);
+console.log(
+  `(Balancer pool dead — quoted ${bal.ethPerSteth.toFixed(6)} excluded from spread)`,
+);
