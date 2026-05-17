@@ -9,15 +9,20 @@ import { runPegCycle } from "./engine/peg.js";
 import { runRollupCycle } from "./engine/rollup.js";
 
 const TICK_INTERVAL_MS = 10_000;
-const RUN_DURATION_MS = Number(process.env.WORKER_RUN_DURATION_MS ?? "30000");
+// 0 means run forever (production default). For verification / local testing,
+// set WORKER_RUN_DURATION_MS=30000 to exit after 30s.
+const RUN_DURATION_MS = Number(process.env.WORKER_RUN_DURATION_MS ?? "0");
+const FOREVER = RUN_DURATION_MS === 0;
 
 console.log("worker up");
 
 const started = Date.now();
 let stop = false;
+process.on("SIGTERM", () => { stop = true; });
+process.on("SIGINT", () => { stop = true; });
 
 async function loop() {
-  while (!stop && Date.now() - started < RUN_DURATION_MS) {
+  while (!stop && (FOREVER || Date.now() - started < RUN_DURATION_MS)) {
     const t0 = Date.now();
     const [funding, basis, lend] = await Promise.allSettled([
       runFundingCycle(),
@@ -62,7 +67,7 @@ async function loop() {
 
     const elapsed = Date.now() - t0;
     const wait = Math.max(0, TICK_INTERVAL_MS - elapsed);
-    if (Date.now() - started + wait < RUN_DURATION_MS) {
+    if (FOREVER || Date.now() - started + wait < RUN_DURATION_MS) {
       await new Promise((r) => setTimeout(r, wait));
     } else break;
   }

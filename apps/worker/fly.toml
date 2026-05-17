@@ -1,0 +1,28 @@
+# Fly.io config for arbitrack worker.
+# Usage:
+#   flyctl launch --no-deploy --copy-config --name arbitrack-worker
+#   flyctl secrets set DATABASE_URL=... ALCHEMY_KEY=...
+#   flyctl deploy
+
+app = "arbitrack-worker"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PENDLE_API_BASE = "https://api-v2.pendle.finance/core"
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
+
+# Worker has no HTTP service — it's a long-running process.
+# Restart on crash; never auto-stop (we want continuous polling).
+[deploy]
+  strategy = "immediate"
+
+[processes]
+  worker = "pnpm dev"
