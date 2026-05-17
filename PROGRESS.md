@@ -70,7 +70,7 @@
 
 ## Phase 5 — Peg & withdrawals (Feature 1, headline)
 
-- [ ] **5.1** `apps/worker/src/adapters/lido/queue.ts` — read WithdrawalQueueERC721 per SPEC §6.2. (deps: 0.12) → verify: probe prints non-zero stETH queue size
+- [x] **5.1** `apps/worker/src/adapters/lido/queue.ts` — read WithdrawalQueueERC721 per SPEC §6.2. (deps: 0.12) → verify: probe prints non-zero stETH queue size
 - [x] **5.2** `apps/worker/src/adapters/lido/wait-time.ts` — fetch wq-api.lido.fi. (deps: 0.5) → verify: probe prints wait days for 1 ETH and 1000 ETH amounts
 - [ ] **5.3** `apps/worker/src/adapters/chain/curve-steth.ts` — `get_dy(1, 0, 1e18)` on stETH pool. (deps: 0.12) → verify: probe prints price ∈ (0.99, 1.001)
 - [ ] **5.4** `apps/worker/src/adapters/chain/uni-v3-wsteth.ts` + `balancer-wsteth.ts`. (deps: 0.12) → verify: probes print prices; max-min spread <0.5%
