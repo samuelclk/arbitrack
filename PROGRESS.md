@@ -25,7 +25,7 @@
 
 ## Phase 1 — Funding (Feature 3, validates pipeline end-to-end)
 
-- [ ] **1.1** `apps/worker/src/adapters/cex/binance.ts` `pollFunding()` → Tick[]. Per SPEC §2.1. (deps: 0.5, 0.10) → verify: `tsx scripts/probe-binance.ts` prints ≥10 funding rows for whitelist symbols
+- [x] **1.1** `apps/worker/src/adapters/cex/binance.ts` `pollFunding()` → Tick[]. Per SPEC §2.1. (deps: 0.5, 0.10) → verify: `tsx scripts/probe-binance.ts` prints ≥10 funding rows for whitelist symbols
 - [ ] **1.2** `apps/worker/src/adapters/cex/bybit.ts` `pollFunding()`. (deps: 1.1 for shape) → verify: probe-bybit prints ≥10 rows
 - [ ] **1.3** `apps/worker/src/adapters/cex/okx.ts` `pollFunding()`. (deps: 1.1) → verify: probe-okx prints ≥10 rows
 - [ ] **1.4** `apps/worker/src/adapters/cex/hyperliquid.ts` `pollFunding()` via POST /info `metaAndAssetCtxs`. (deps: 1.1) → verify: probe-hyperliquid prints ≥10 rows
