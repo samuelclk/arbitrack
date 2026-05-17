@@ -66,6 +66,9 @@ arbitrack/
 | Bybit | `https://api.bybit.com/v5/market/tickers?category=linear` | GET | varies | Funding in tickers response. Fields: `fundingRate`, `nextFundingTime`, **`fundingIntervalHour`** (string, source of truth — use this). |
 | OKX | `https://www.okx.com/api/v5/public/funding-rate?instId=BTC-USDT-SWAP` | GET | 8h | **Per-instrument only — no batch.** Loop over whitelist; rate limit 20 req/2s per IP. Interval inferred from `fundingTime`/`nextFundingTime` delta. |
 | Hyperliquid | `https://api.hyperliquid.xyz/info` | POST `{"type":"metaAndAssetCtxs"}` | **1h** | All perps in one call. `funding` is **hourly decimal rate**. **ANNUALIZE × 8760** (24 × 365), NOT × 1095. Common bug. |
+| **Lighter** (DEX, zkSync hyperchain) | `https://mainnet.zklighter.elliot.ai/api/v1/funding-rates` | GET | **1h** | All 168 markets in one call. Response also aggregates Binance/Bybit/Hyperliquid rates — filter `exchange == "lighter"`. Decimal rates (`0.000032` = 0.0032%/hr). Annualize × 8760. Key by `market_id`. Docs: [docs.lighter.xyz](https://docs.lighter.xyz/perpetual-futures/funding). |
+| **Aster** (DEX, BNB Chain, fka Astherus) | `https://fapi.asterdex.com/fapi/v3/premiumIndex` | GET | **8h** | Binance-compatible response shape — can reuse Binance adapter logic. All 555 USDT-margined perps in one call. Field: `lastFundingRate` (decimal string). Annualize × 1095. Weight-limited (`X-MBX-USED-WEIGHT-1m`). Docs: [github.com/asterdex/api-docs](https://github.com/asterdex/api-docs). |
+| **GRVT** (DEX, zkSync hyperchain validium) | `POST https://market-data.grvt.io/full/v1/ticker` body `{"instrument":"BTC_USDT_Perp"}` | POST | **per-instrument variable** | **No batch funding endpoint.** Loop over 118 instruments OR use websocket (`wss://market-data.grvt.io/ws`). Symbol format: `{BASE}_{QUOTE}_Perp`. **Read `funding_interval_hours` from `POST /full/v1/instruments` per instrument** — BTC/ETH/SOL are 8h but other perps differ; don't hardcode. Timestamps are **nanoseconds**. ⚠️ **Verify `funding_rate` scale on first live cycle** — sample value `0.0096` is ambiguous (could be decimal-8h-rate, percent, or already-annualized). Cross-check against [help.grvt.io](https://help.grvt.io/en/articles/12555039-funding-rate-mechanism) before trusting in production. |
 
 **Reference impl**: [`jose-donato/crypto-futures-arbitrage-scanner`](https://github.com/jose-donato/crypto-futures-arbitrage-scanner) — Go, multi-venue (spot-vs-perp WS, different problem but useful pattern: one goroutine per exchange + fanout channel).
 
@@ -340,7 +343,10 @@ apps/worker/src/
 │   │   ├── bybit.ts
 │   │   ├── okx.ts                 # per-instrument funding loop, batch instruments
 │   │   ├── hyperliquid.ts         # POST metaAndAssetCtxs; annualize × 8760
-│   │   └── deribit.ts             # BTC/ETH only
+│   │   ├── deribit.ts             # BTC/ETH only (quarterly futures basis)
+│   │   ├── lighter.ts             # DEX, batch funding-rates endpoint, 1h interval
+│   │   ├── aster.ts               # DEX, Binance-compatible, 8h interval
+│   │   └── grvt.ts                # DEX, per-instrument POST loop, variable funding intervals
 │   ├── chain/
 │   │   ├── curve-steth.ts         # get_dy(1, 0, 1e18)
 │   │   ├── uni-v3-wsteth.ts       # slot0 + sqrtPriceX96 math, both fee tiers
