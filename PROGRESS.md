@@ -18,7 +18,7 @@
 - [x] **0.8** `apps/worker` scaffold (tsx runner, src/index.ts logs "worker up"). (deps: 0.1) → verify: `pnpm dev:worker` prints "worker up" then exits cleanly
 - [x] **0.9** `apps/web` scaffold (Next.js 14 App Router, page renders "ArbiTrack"). (deps: 0.1) → verify: dev server on :3000 returns 200 with "ArbiTrack"
 - [x] **0.10** `apps/worker/src/db/client.ts` — pg pool against `DATABASE_URL`. (deps: 0.8) → verify: `tsx scripts/db-ping.ts` prints "ok"
-- [ ] **0.11** `apps/worker/db/migrations/0001_init.sql` with all 9 tables from SPEC §4 + `pnpm db:migrate` runner. (deps: 0.10) → verify: `psql $DATABASE_URL -c "\dt"` lists 9 tables
+- [x] **0.11** `apps/worker/db/migrations/0001_init.sql` with all 9 tables from SPEC §4 + `pnpm db:migrate` runner. (deps: 0.10) → verify: `psql $DATABASE_URL -c "\dt"` lists 9 tables
 - [x] **0.12** `apps/worker/src/chain/clients.ts` — viem clients per chain + multicall3 healthcheck. (deps: 0.7, 0.8) → verify: `tsx scripts/rpc-ping.ts` prints latest block per chain
 
 ---
