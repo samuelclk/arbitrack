@@ -4,11 +4,38 @@ Paste the block below into Codex (chatgpt.com/codex) on a fresh task pointed at 
 
 ## How to launch
 
-1. Open Codex → New task → point at `samuelclk/arbitrack` main branch.
-2. Paste the goal block below.
-3. Set Codex environment secrets: `DATABASE_URL`, `ALCHEMY_KEY` (without these, foundation tasks past 0.10 will be marked `[!]` and skipped).
-4. Set time budget to 3 hours, max iterations 200, allow network access.
-5. Launch.
+### Prerequisite — enable the experimental `/goal` feature
+
+Either:
+- Run `/experimental` in Codex CLI and toggle **goals** on, OR
+- Add to `~/.codex/config.toml`:
+  ```toml
+  [features]
+  goals = true
+  ```
+
+### Launch flow
+
+1. Open Codex (CLI or chatgpt.com/codex) → New task → point at `samuelclk/arbitrack` main branch.
+2. In Codex's session/task settings (NOT in the `/goal` command itself — `/goal` has no flags):
+   - Set max runtime ≈ 3 hours
+   - Allow network access (needed for CEX APIs, Alchemy, Pendle, DefiLlama, Lido)
+   - Set environment secrets: `DATABASE_URL`, `ALCHEMY_KEY` (without these, foundation tasks past 0.10 will be marked `[!]` and skipped)
+3. Type the goal command, pasting the block below as the `<objective>`:
+   ```
+   /goal <paste the entire prompt block below as one continuous objective string>
+   ```
+4. Codex starts working. Use `/goal pause`, `/goal resume`, or `/goal clear` to control mid-run.
+5. To monitor: `/goal` (no args) prints the current objective + state.
+
+### Codex `/goal` flag reference (verified against official docs)
+
+The `/goal` command takes NO flags. Only 5 subcommands exist:
+- `/goal <objective>` — set
+- `/goal` — view
+- `/goal pause` / `/goal resume` / `/goal clear` — state control
+
+Time budget, iteration count, network access, and secrets are configured at the Codex session level, not via `/goal` parameters.
 
 ## Expected outcome at 3h
 
