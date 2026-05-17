@@ -51,6 +51,9 @@ importers:
       viem:
         specifier: ^2.21.45
         version: 2.49.3(typescript@5.9.3)(zod@4.4.3)
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@types/pg':
         specifier: ^8.11.10

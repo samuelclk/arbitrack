@@ -53,7 +53,7 @@
 
 ## Phase 3 — Lending rates (Feature 5, first on-chain integration)
 
-- [ ] **3.1** `apps/worker/src/adapters/defillama/yields.ts` — GET yields.llama.fi/pools AND /lendBorrow, join on `pool` uuid, filter per SPEC §2.3 (includes WETH/wstETH/ETH + stables USDC/USDT/DAI/GHO/USDS/crvUSD/sUSDe). (deps: 0.5) → verify: probe prints ≥40 pools across 4 chains
+- [x] **3.1** `apps/worker/src/adapters/defillama/yields.ts` — GET yields.llama.fi/pools AND /lendBorrow, join on `pool` uuid, filter per SPEC §2.3 (includes WETH/wstETH/ETH + stables USDC/USDT/DAI/GHO/USDS/crvUSD/sUSDe). (deps: 0.5) → verify: probe prints ≥40 pools across 4 chains
 - [ ] **3.2** `apps/worker/src/adapters/chain/aave-v3.ts` — multicall `getReserveData` + `getConfiguration` per chain. (deps: 0.12) → verify: probe prints WETH+wstETH LLTV/borrow rate for mainnet/Arb/OP/Base (8 rows)
 - [ ] **3.3** `apps/worker/src/adapters/chain/morpho-blue.ts` — subgraph query for top wstETH-collateral markets. (deps: 0.5) → verify: probe prints ≥3 markets with lltv + borrow apy
 - [ ] **3.4** `apps/worker/src/adapters/chain/spark.ts` (Aave-fork ABI, mainnet only). (deps: 3.2) → verify: probe prints WETH + wstETH rows
