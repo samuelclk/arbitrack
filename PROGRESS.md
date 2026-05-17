@@ -95,7 +95,7 @@
 - [x] **7.2** `apps/web/app/components/UpdatedAgo.tsx`. (deps: 0.9) → verify: counter advances 1s/s, resets on poll
 - [ ] **7.3** `apps/web/app/components/Sparkline.tsx` (inline SVG from `spread_hourly`). (deps: 7.4) → verify: peg + funding + lend rows render 24-point sparklines
 - [ ] **7.4** `apps/worker/src/engine/rollup.ts` — incremental `spread_hourly` maintenance, cron 5min. (deps: 1.5, 2.4, 3.5, 4.2, 5.5, 6.2) → verify: `SELECT COUNT(*) FROM spread_hourly > 0` after 1h runtime
-- [ ] **7.5** Footer disclosure component (data sources per tab, not-investment-advice). (deps: 0.9) → verify: visible at bottom of every tab
+- [x] **7.5** Footer disclosure component (data sources per tab, not-investment-advice). (deps: 0.9) → verify: visible at bottom of every tab
 
 ---
 

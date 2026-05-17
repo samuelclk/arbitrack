@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Footer } from "./components/Footer";
 
 export const metadata = {
   title: "ArbiTrack",
@@ -7,7 +8,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
