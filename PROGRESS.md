@@ -8,7 +8,7 @@
 
 ## Phase 0 — Foundation
 
-- [ ] **0.1** pnpm-workspace.yaml + root package.json with `dev:web`, `dev:worker`, `db:migrate`, `test` scripts. (deps: none) → verify: `pnpm install` succeeds
+- [x] **0.1** pnpm-workspace.yaml + root package.json with `dev:web`, `dev:worker`, `db:migrate`, `test` scripts. (deps: none) → verify: `pnpm install` succeeds
 - [x] **0.2** `.env.example` with `DATABASE_URL`, `ALCHEMY_KEY`, `PENDLE_API_BASE=https://api-v2.pendle.finance/core` (single Alchemy team key works across all chains). (deps: 0.1) → verify: file present with all 3 keys
 - [ ] **0.3** `packages/shared` scaffold (tsconfig, package.json, src/index.ts barrel). (deps: 0.1) → verify: `pnpm -F shared build` succeeds
 - [ ] **0.4** `packages/shared/src/types.ts` — Venue, Chain, Category enums; Tick, Opportunity, LendRate, PegSnap, PendleMarket interfaces per SPEC §4. (deps: 0.3) → verify: `tsc --noEmit -p packages/shared`

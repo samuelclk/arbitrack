@@ -1,0 +1,12 @@
+{
+  "name": "arbitrack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:web": "pnpm -F web dev",
+    "dev:worker": "pnpm -F worker dev",
+    "db:migrate": "pnpm -F worker db:migrate",
+    "test": "pnpm -r test"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
