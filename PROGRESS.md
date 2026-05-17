@@ -16,7 +16,7 @@
 - [x] **0.6** `packages/shared/src/math.ts` + `math.test.ts` — all 6 formulas from SPEC §3, ≥2 cases each. (deps: 0.5) → verify: `pnpm -F shared test` passes ≥12 assertions
 - [x] **0.7** `packages/shared/src/constants.ts` — addresses + chain IDs + symbol whitelist from SPEC §6. (deps: 0.4) → verify: `tsc --noEmit` clean
 - [x] **0.8** `apps/worker` scaffold (tsx runner, src/index.ts logs "worker up"). (deps: 0.1) → verify: `pnpm dev:worker` prints "worker up" then exits cleanly
-- [ ] **0.9** `apps/web` scaffold (Next.js 14 App Router, page renders "ArbiTrack"). (deps: 0.1) → verify: dev server on :3000 returns 200 with "ArbiTrack"
+- [x] **0.9** `apps/web` scaffold (Next.js 14 App Router, page renders "ArbiTrack"). (deps: 0.1) → verify: dev server on :3000 returns 200 with "ArbiTrack"
 - [ ] **0.10** `apps/worker/src/db/client.ts` — pg pool against `DATABASE_URL`. (deps: 0.8) → verify: `tsx scripts/db-ping.ts` prints "ok"
 - [ ] **0.11** `apps/worker/db/migrations/0001_init.sql` with all 9 tables from SPEC §4 + `pnpm db:migrate` runner. (deps: 0.10) → verify: `psql $DATABASE_URL -c "\dt"` lists 9 tables
 - [ ] **0.12** `apps/worker/src/chain/clients.ts` — viem clients per chain + multicall3 healthcheck. (deps: 0.7, 0.8) → verify: `tsx scripts/rpc-ping.ts` prints latest block per chain
