@@ -14,7 +14,7 @@
 - [x] **0.4** `packages/shared/src/types.ts` — Venue, Chain, Category enums; Tick, Opportunity, LendRate, PegSnap, PendleMarket interfaces per SPEC §4. (deps: 0.3) → verify: `tsc --noEmit -p packages/shared`
 - [x] **0.5** `packages/shared/src/schemas.ts` — zod mirrors of every type in 0.4. (deps: 0.4) → verify: `pnpm -F shared test` (one round-trip per schema)
 - [x] **0.6** `packages/shared/src/math.ts` + `math.test.ts` — all 6 formulas from SPEC §3, ≥2 cases each. (deps: 0.5) → verify: `pnpm -F shared test` passes ≥12 assertions
-- [ ] **0.7** `packages/shared/src/constants.ts` — addresses + chain IDs + symbol whitelist from SPEC §6. (deps: 0.4) → verify: `tsc --noEmit` clean
+- [x] **0.7** `packages/shared/src/constants.ts` — addresses + chain IDs + symbol whitelist from SPEC §6. (deps: 0.4) → verify: `tsc --noEmit` clean
 - [ ] **0.8** `apps/worker` scaffold (tsx runner, src/index.ts logs "worker up"). (deps: 0.1) → verify: `pnpm dev:worker` prints "worker up" then exits cleanly
 - [ ] **0.9** `apps/web` scaffold (Next.js 14 App Router, page renders "ArbiTrack"). (deps: 0.1) → verify: dev server on :3000 returns 200 with "ArbiTrack"
 - [ ] **0.10** `apps/worker/src/db/client.ts` — pg pool against `DATABASE_URL`. (deps: 0.8) → verify: `tsx scripts/db-ping.ts` prints "ok"
