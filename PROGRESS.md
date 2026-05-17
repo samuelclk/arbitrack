@@ -11,7 +11,7 @@
 - [x] **0.1** pnpm-workspace.yaml + root package.json with `dev:web`, `dev:worker`, `db:migrate`, `test` scripts. (deps: none) → verify: `pnpm install` succeeds
 - [x] **0.2** `.env.example` with `DATABASE_URL`, `ALCHEMY_KEY`, `PENDLE_API_BASE=https://api-v2.pendle.finance/core` (single Alchemy team key works across all chains). (deps: 0.1) → verify: file present with all 3 keys
 - [x] **0.3** `packages/shared` scaffold (tsconfig, package.json, src/index.ts barrel). (deps: 0.1) → verify: `pnpm -F shared build` succeeds
-- [ ] **0.4** `packages/shared/src/types.ts` — Venue, Chain, Category enums; Tick, Opportunity, LendRate, PegSnap, PendleMarket interfaces per SPEC §4. (deps: 0.3) → verify: `tsc --noEmit -p packages/shared`
+- [x] **0.4** `packages/shared/src/types.ts` — Venue, Chain, Category enums; Tick, Opportunity, LendRate, PegSnap, PendleMarket interfaces per SPEC §4. (deps: 0.3) → verify: `tsc --noEmit -p packages/shared`
 - [ ] **0.5** `packages/shared/src/schemas.ts` — zod mirrors of every type in 0.4. (deps: 0.4) → verify: `pnpm -F shared test` (one round-trip per schema)
 - [ ] **0.6** `packages/shared/src/math.ts` + `math.test.ts` — all 6 formulas from SPEC §3, ≥2 cases each. (deps: 0.5) → verify: `pnpm -F shared test` passes ≥12 assertions
 - [ ] **0.7** `packages/shared/src/constants.ts` — addresses + chain IDs + symbol whitelist from SPEC §6. (deps: 0.4) → verify: `tsc --noEmit` clean
