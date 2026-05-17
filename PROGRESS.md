@@ -83,7 +83,7 @@
 ## Phase 6 — Pendle (Feature 2)
 
 - [x] **6.1** `apps/worker/src/adapters/pendle/markets.ts` — GET api-v2.pendle.finance markets, filter to **wstETH only** (per SPEC §2.6 scope — no weETH/ezETH). (deps: 0.5) → verify: probe prints ≥3 markets with implied APY + expiry
-- [ ] **6.2** `apps/worker/src/engine/pendle.ts` — for each Pendle wstETH market, fetch matching wstETH borrow rate from `lend_rates`; compute `pendle_spread`; upsert opportunities (category='pendle'). (deps: 3.5, 6.1) → verify: `SELECT COUNT(*) WHERE category='pendle'` > 0
+- [x] **6.2** `apps/worker/src/engine/pendle.ts` — for each Pendle wstETH market, fetch matching wstETH borrow rate from `lend_rates`; compute `pendle_spread`; upsert opportunities (category='pendle'). (deps: 3.5, 6.1) → verify: `SELECT COUNT(*) WHERE category='pendle'` > 0
 - [ ] **6.3** `apps/web/app/(tabs)/pendle/page.tsx` (table: market, expiry, PT APY, wstETH borrow APR, spread). Expect ~3 rows. (deps: 1.6, 6.2) → verify: /pendle renders; PT yield cross-checks vs pendle.finance UI within 10 bps per SPEC §7.3
 
 ---

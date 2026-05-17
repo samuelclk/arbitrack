@@ -4,6 +4,7 @@ import { runFundingCycle } from "./engine/funding.js";
 import { runBasisCycle } from "./engine/basis.js";
 import { runLendCycle } from "./engine/lend.js";
 import { runLoopCycle } from "./engine/loop.js";
+import { runPendleCycle } from "./engine/pendle.js";
 
 const TICK_INTERVAL_MS = 10_000;
 const RUN_DURATION_MS = Number(process.env.WORKER_RUN_DURATION_MS ?? "30000");
@@ -31,12 +32,18 @@ async function loop() {
       console.log(`lend:    rates=${lend.value.rates} opps=${lend.value.opps}`);
     } else console.error("lend cycle failed:", lend.reason);
 
-    // Loop engine depends on freshly-written lend_rates from this cycle
+    // Loop + Pendle engines depend on freshly-written lend_rates from this cycle
     try {
       const r = await runLoopCycle();
       console.log(`loop:    pairs=${r.pairs} opps=${r.opps}`);
     } catch (err) {
       console.error("loop cycle failed:", err);
+    }
+    try {
+      const r = await runPendleCycle();
+      console.log(`pendle:  markets=${r.markets} opps=${r.opps}`);
+    } catch (err) {
+      console.error("pendle cycle failed:", err);
     }
 
     const elapsed = Date.now() - t0;
