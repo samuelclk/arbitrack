@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "../src/env.js";
 import { pgPool } from "../src/db/client.js";
 
 const res = await pgPool.query("SELECT 1");

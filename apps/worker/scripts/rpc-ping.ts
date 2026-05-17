@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "../src/env.js";
 import { Chain } from "shared";
 import { multicall3Healthcheck } from "../src/chain/clients.js";
 
