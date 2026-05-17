@@ -2,6 +2,29 @@
 
 You are extending ArbiTrack via a Ralph loop. Follow these steps every iteration.
 
+---
+
+## Launch command (v2)
+
+Paste this into Claude Code to start the build:
+
+```
+/ralph "Follow RALPH.md exactly. Each iteration: read PROGRESS.md, find first [ ] task whose deps are all [x], read SPEC.md sections it references (e.g. 'SPEC §3.4', 'SPEC §6.2'), implement only the listed files, run the verification command exactly as written, mark [x] on pass or [!] BLOCKED: <error> on hard fail, commit 'ralph(<id>): <title>'. When no eligible [ ] tasks remain, print RALPH DONE and exit." --max-iterations 200 --completion-promise "RALPH DONE"
+```
+
+**Flag reference** (verified against [the official plugin README](https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md)):
+
+| Flag | Value | Rationale |
+|---|---|---|
+| `--max-iterations` | `200` | Safety cap. 55 tasks × ~3 attempts each = 165 worst case; 200 gives headroom. |
+| `--completion-promise` | `"RALPH DONE"` | Exact-match. Aligns with the exit signal in Per-iteration step 2 below. |
+
+Only those two flags exist. No env vars on the loop command itself; secrets live in `.env.local`.
+
+To cancel mid-run: `/cancel-ralph`.
+
+---
+
 ## Per-iteration flow
 
 1. **Read** `PROGRESS.md` top-to-bottom.
