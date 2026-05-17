@@ -5,6 +5,7 @@ import { runBasisCycle } from "./engine/basis.js";
 import { runLendCycle } from "./engine/lend.js";
 import { runLoopCycle } from "./engine/loop.js";
 import { runPendleCycle } from "./engine/pendle.js";
+import { runPegCycle } from "./engine/peg.js";
 
 const TICK_INTERVAL_MS = 10_000;
 const RUN_DURATION_MS = Number(process.env.WORKER_RUN_DURATION_MS ?? "30000");
@@ -44,6 +45,12 @@ async function loop() {
       console.log(`pendle:  markets=${r.markets} opps=${r.opps}`);
     } catch (err) {
       console.error("pendle cycle failed:", err);
+    }
+    try {
+      const r = await runPegCycle();
+      console.log(`peg:     apr=${(r.aprBps / 100).toFixed(2)}% wait=${r.waitDays.toFixed(2)}d best=${r.bestSteth.toFixed(6)}`);
+    } catch (err) {
+      console.error("peg cycle failed:", err);
     }
 
     const elapsed = Date.now() - t0;
