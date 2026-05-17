@@ -51,21 +51,22 @@ export default async function LoopsPage() {
         </thead>
         <tbody>
           {rows.map((r) => {
-            const buffer = r.detail.lltv * 0.2; // unused 20% of LLTV
+            const d = r.detail ?? ({} as LoopRow["detail"]);
+            const buffer = (d.lltv ?? 0) * 0.2;
             return (
               <tr
                 key={r.id}
                 data-testid="loop-row"
-                data-venue={r.detail.venue}
-                data-chain={r.detail.chain}
+                data-venue={d.venue ?? r.long_venue ?? "—"}
+                data-chain={d.chain ?? r.chain ?? "—"}
                 data-net-apr-bps={r.apr_bps}
               >
-                <td>{r.detail.venue}</td>
-                <td>{r.detail.chain}</td>
-                <td>{r.detail.leverage.toFixed(2)}x</td>
-                <td>{fmtPct(r.detail.stethApr)}</td>
-                <td>{fmtPct(r.detail.borrowApr)}</td>
-                <td>{fmtPct(r.detail.lltv)}</td>
+                <td>{d.venue ?? r.long_venue ?? "—"}</td>
+                <td>{d.chain ?? r.chain ?? "—"}</td>
+                <td>{d.leverage != null ? `${d.leverage.toFixed(2)}x` : "—"}</td>
+                <td>{d.stethApr != null ? fmtPct(d.stethApr) : "—"}</td>
+                <td>{d.borrowApr != null ? fmtPct(d.borrowApr) : "—"}</td>
+                <td>{d.lltv != null ? fmtPct(d.lltv) : "—"}</td>
                 <td>{fmtPct(buffer)}</td>
                 <td>{fmtPct(Number(r.apr_bps) / 10_000)}</td>
               </tr>
