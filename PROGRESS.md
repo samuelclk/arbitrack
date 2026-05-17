@@ -62,7 +62,7 @@
 
 ## Phase 4 — Loops (Feature 6, pure derivation)
 
-- [ ] **4.1** `apps/worker/src/adapters/lido/apr.ts` — fetch stake.lido.fi/api/sma-steth-apr; fallback to on-chain share-rate delta. (deps: 0.12) → verify: probe prints APR ∈ (2%, 6%)
+- [x] **4.1** `apps/worker/src/adapters/lido/apr.ts` — fetch stake.lido.fi/api/sma-steth-apr; fallback to on-chain share-rate delta. (deps: 0.12) → verify: probe prints APR ∈ (2%, 6%)
 - [ ] **4.2** `apps/worker/src/engine/loop.ts` — for each (venue, chain) with wstETH collateral + ETH borrow, compute `net_apr(safe_leverage)`; upsert opportunities (category='loop'). (deps: 3.5, 4.1) → verify: `SELECT MAX(apr_bps) FROM opportunities WHERE category='loop'` > stETH_apr_bps
 - [ ] **4.3** `apps/web/app/(tabs)/loops/page.tsx` (sorted by net APR desc, health buffer column). (deps: 1.6, 4.2) → verify: /loops renders; hand-derived cell matches within 1 bp
 
