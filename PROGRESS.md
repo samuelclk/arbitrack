@@ -101,5 +101,6 @@
 
 - [!] **8.1** Vercel deploy of apps/web (env vars set, build passes). (deps: all Phase 7) → verify: curl `<vercel-url>/api/opportunities` returns 200
   BLOCKED: deploy requires Vercel API token + linked project; human action needed
-- [ ] **8.2** Fly.io machine for apps/worker (Dockerfile, fly.toml, 256MB). (deps: all Phase 7) → verify: `fly logs` shows tick lines from all 4 CEX + lend cycle
+- [!] **8.2** Fly.io machine for apps/worker (Dockerfile, fly.toml, 256MB). (deps: all Phase 7) → verify: `fly logs` shows tick lines from all 4 CEX + lend cycle
+  BLOCKED: deploy requires Fly.io auth (flyctl + app create); human action needed
 - [ ] **8.3** README.md with setup + deploy steps. (deps: 8.1, 8.2) → verify: ≥10 sections present
