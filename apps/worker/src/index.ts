@@ -3,6 +3,7 @@ import { pgPool } from "./db/client.js";
 import { runFundingCycle } from "./engine/funding.js";
 import { runBasisCycle } from "./engine/basis.js";
 import { runLendCycle } from "./engine/lend.js";
+import { runLoopCycle } from "./engine/loop.js";
 
 const TICK_INTERVAL_MS = 10_000;
 const RUN_DURATION_MS = Number(process.env.WORKER_RUN_DURATION_MS ?? "30000");
@@ -29,6 +30,14 @@ async function loop() {
     if (lend.status === "fulfilled") {
       console.log(`lend:    rates=${lend.value.rates} opps=${lend.value.opps}`);
     } else console.error("lend cycle failed:", lend.reason);
+
+    // Loop engine depends on freshly-written lend_rates from this cycle
+    try {
+      const r = await runLoopCycle();
+      console.log(`loop:    pairs=${r.pairs} opps=${r.opps}`);
+    } catch (err) {
+      console.error("loop cycle failed:", err);
+    }
 
     const elapsed = Date.now() - t0;
     const wait = Math.max(0, TICK_INTERVAL_MS - elapsed);
