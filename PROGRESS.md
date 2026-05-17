@@ -45,7 +45,7 @@
 - [x] **2.2** `apps/worker/src/adapters/cex/okx.ts` add `pollQuarterly()`. (deps: 1.3) → verify: probe prints ≥2 contracts
 - [x] **2.3** `apps/worker/src/adapters/cex/deribit.ts` `pollQuarterly()`. (deps: 1.1) → verify: probe prints ≥3 contracts (BTC/ETH/SOL)
 - [x] **2.4** `apps/worker/src/engine/basis.ts` — upsert opportunities (category='basis'). (deps: 2.1, 2.2, 2.3) → verify: `SELECT COUNT(*) WHERE category='basis'` > 0
-- [ ] **2.5** `apps/web/app/(tabs)/basis/page.tsx`. (deps: 1.6, 2.4) → verify: /basis renders; one BTC quarterly basis cross-checks vs CoinGlass within 0.1%
+- [x] **2.5** `apps/web/app/(tabs)/basis/page.tsx`. (deps: 1.6, 2.4) → verify: /basis renders; one BTC quarterly basis cross-checks vs CoinGlass within 0.1%
 
 ---
 
