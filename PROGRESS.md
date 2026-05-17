@@ -55,7 +55,7 @@
 - [x] **3.2** `apps/worker/src/adapters/chain/aave-v3.ts` — multicall `getReserveData` + `getConfiguration` per chain. (deps: 0.12) → verify: probe prints WETH+wstETH LLTV/borrow rate for mainnet/Arb/OP/Base (8 rows)
 - [x] **3.3** `apps/worker/src/adapters/chain/morpho-blue.ts` — subgraph query for top wstETH-collateral markets. (deps: 0.5) → verify: probe prints ≥3 markets with lltv + borrow apy
 - [x] **3.4** `apps/worker/src/adapters/chain/spark.ts` (Aave-fork ABI, mainnet only). (deps: 3.2) → verify: probe prints WETH + wstETH rows
-- [ ] **3.5** `apps/worker/src/engine/lend.ts` — write `lend_rates`; compute borrow-dispersion → opportunities (category='lend'). (deps: 3.1, 3.2, 3.3, 3.4) → verify: `SELECT DISTINCT chain, venue FROM lend_rates` returns ≥6 combinations
+- [x] **3.5** `apps/worker/src/engine/lend.ts` — write `lend_rates`; compute borrow-dispersion → opportunities (category='lend'). (deps: 3.1, 3.2, 3.3, 3.4) → verify: `SELECT DISTINCT chain, venue FROM lend_rates` returns ≥6 combinations
 - [ ] **3.6** `apps/web/app/(tabs)/lend/page.tsx` (table sorted by borrow APR asc). (deps: 1.6, 3.5) → verify: /lend renders; Aave mainnet WETH borrow matches app.aave.com within 5 bps per SPEC §7.2
 
 ---
