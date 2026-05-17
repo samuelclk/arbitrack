@@ -35,7 +35,7 @@
 - [x] **1.5** `apps/worker/src/engine/funding.ts` — read latest tick per (venue,symbol), compute directed spreads, upsert `opportunities`. Includes CEX (Binance/Bybit/OKX/Hyperliquid) + DEX (Lighter/Aster/GRVT). (deps: 1.1, 1.2, 1.3, 1.4, 1.4a, 1.4b, 1.4c) → verify: run worker 30s; `SELECT COUNT(*) FROM opportunities WHERE category='funding'` > 0 AND `SELECT COUNT(DISTINCT long_venue) FROM opportunities WHERE category='funding'` ≥ 7
 - [x] **1.6** `apps/web/app/api/opportunities/route.ts` (GET, filter by `?cat=`, 5s in-memory cache). (deps: 0.9, 0.11) → verify: `curl localhost:3000/api/opportunities?cat=funding` returns JSON array
 - [x] **1.7** `apps/web/app/(tabs)/funding/page.tsx` + `OpportunityRow` + `useSWR` hook. (deps: 1.6) → verify: /funding renders rows; manual "Updated Xs ago" counter advances
-- [ ] **1.8** Spot-check 1 funding rate against Binance per SPEC §7.1. (deps: 1.7) → verify: values match to 6 dp
+- [x] **1.8** Spot-check 1 funding rate against Binance per SPEC §7.1. (deps: 1.7) → verify: values match to 6 dp
 
 ---
 
