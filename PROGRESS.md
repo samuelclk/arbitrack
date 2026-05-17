@@ -27,7 +27,7 @@
 
 - [x] **1.1** `apps/worker/src/adapters/cex/binance.ts` `pollFunding()` → Tick[]. Per SPEC §2.1. (deps: 0.5, 0.10) → verify: `tsx scripts/probe-binance.ts` prints ≥10 funding rows for whitelist symbols
 - [x] **1.2** `apps/worker/src/adapters/cex/bybit.ts` `pollFunding()`. (deps: 1.1 for shape) → verify: probe-bybit prints ≥10 rows
-- [ ] **1.3** `apps/worker/src/adapters/cex/okx.ts` `pollFunding()`. (deps: 1.1) → verify: probe-okx prints ≥10 rows
+- [x] **1.3** `apps/worker/src/adapters/cex/okx.ts` `pollFunding()`. (deps: 1.1) → verify: probe-okx prints ≥10 rows
 - [ ] **1.4** `apps/worker/src/adapters/cex/hyperliquid.ts` `pollFunding()` via POST /info `metaAndAssetCtxs`. (deps: 1.1) → verify: probe-hyperliquid prints ≥10 rows
 - [ ] **1.4a** `apps/worker/src/adapters/cex/lighter.ts` `pollFunding()` — GET `mainnet.zklighter.elliot.ai/api/v1/funding-rates`, filter `exchange=="lighter"`, return Tick[]. Per SPEC §2.1. (deps: 1.1) → verify: probe-lighter prints ≥10 rows with `BTC`/`ETH`/`SOL` present
 - [ ] **1.4b** `apps/worker/src/adapters/cex/aster.ts` `pollFunding()` — GET `fapi.asterdex.com/fapi/v3/premiumIndex` (Binance-compatible shape, can reuse Binance parser). Per SPEC §2.1. (deps: 1.1) → verify: probe-aster prints ≥10 rows
