@@ -9,7 +9,7 @@
 ## Phase 0 — Foundation
 
 - [ ] **0.1** pnpm-workspace.yaml + root package.json with `dev:web`, `dev:worker`, `db:migrate`, `test` scripts. (deps: none) → verify: `pnpm install` succeeds
-- [ ] **0.2** `.env.example` with `DATABASE_URL`, `ALCHEMY_KEY_MAINNET`, `ALCHEMY_KEY_ARB`, `ALCHEMY_KEY_OP`, `ALCHEMY_KEY_BASE`, `PENDLE_API_BASE=https://api-v2.pendle.finance/core`. (deps: 0.1) → verify: file present with all 6 keys
+- [x] **0.2** `.env.example` with `DATABASE_URL`, `ALCHEMY_KEY`, `PENDLE_API_BASE=https://api-v2.pendle.finance/core` (single Alchemy team key works across all chains). (deps: 0.1) → verify: file present with all 3 keys
 - [ ] **0.3** `packages/shared` scaffold (tsconfig, package.json, src/index.ts barrel). (deps: 0.1) → verify: `pnpm -F shared build` succeeds
 - [ ] **0.4** `packages/shared/src/types.ts` — Venue, Chain, Category enums; Tick, Opportunity, LendRate, PegSnap, PendleMarket interfaces per SPEC §4. (deps: 0.3) → verify: `tsc --noEmit -p packages/shared`
 - [ ] **0.5** `packages/shared/src/schemas.ts` — zod mirrors of every type in 0.4. (deps: 0.4) → verify: `pnpm -F shared test` (one round-trip per schema)
@@ -48,7 +48,7 @@
 
 ## Phase 3 — Lending rates (Feature 5, first on-chain integration)
 
-- [ ] **3.1** `apps/worker/src/adapters/defillama/yields.ts` — GET yields.llama.fi/pools, filter per SPEC §2.3. (deps: 0.5) → verify: probe prints ≥20 pools across 4 chains
+- [ ] **3.1** `apps/worker/src/adapters/defillama/yields.ts` — GET yields.llama.fi/pools AND /lendBorrow, join on `pool` uuid, filter per SPEC §2.3 (includes WETH/wstETH/ETH + stables USDC/USDT/DAI/GHO/USDS/crvUSD/sUSDe). (deps: 0.5) → verify: probe prints ≥40 pools across 4 chains
 - [ ] **3.2** `apps/worker/src/adapters/chain/aave-v3.ts` — multicall `getReserveData` + `getConfiguration` per chain. (deps: 0.12) → verify: probe prints WETH+wstETH LLTV/borrow rate for mainnet/Arb/OP/Base (8 rows)
 - [ ] **3.3** `apps/worker/src/adapters/chain/morpho-blue.ts` — subgraph query for top wstETH-collateral markets. (deps: 0.5) → verify: probe prints ≥3 markets with lltv + borrow apy
 - [ ] **3.4** `apps/worker/src/adapters/chain/spark.ts` (Aave-fork ABI, mainnet only). (deps: 3.2) → verify: probe prints WETH + wstETH rows
@@ -78,9 +78,9 @@
 
 ## Phase 6 — Pendle (Feature 2)
 
-- [ ] **6.1** `apps/worker/src/adapters/pendle/markets.ts` — GET api-v2.pendle.finance markets, filter to wstETH/weETH underlying. (deps: 0.5) → verify: probe prints ≥4 markets with implied APY + expiry
+- [ ] **6.1** `apps/worker/src/adapters/pendle/markets.ts` — GET api-v2.pendle.finance markets, filter to **wstETH only** (per SPEC §2.6 scope — no weETH/ezETH). (deps: 0.5) → verify: probe prints ≥3 markets with implied APY + expiry
 - [ ] **6.2** `apps/worker/src/engine/pendle.ts` — for each Pendle wstETH market, fetch matching wstETH borrow rate from `lend_rates`; compute `pendle_spread`; upsert opportunities (category='pendle'). (deps: 3.5, 6.1) → verify: `SELECT COUNT(*) WHERE category='pendle'` > 0
-- [ ] **6.3** `apps/web/app/(tabs)/pendle/page.tsx` (table: market, expiry, PT APY, borrow APR, spread). (deps: 1.6, 6.2) → verify: /pendle renders; PT yield cross-checks vs pendle.finance UI within 10 bps per SPEC §7.3
+- [ ] **6.3** `apps/web/app/(tabs)/pendle/page.tsx` (table: market, expiry, PT APY, wstETH borrow APR, spread). Expect ~3 rows. (deps: 1.6, 6.2) → verify: /pendle renders; PT yield cross-checks vs pendle.finance UI within 10 bps per SPEC §7.3
 
 ---
 

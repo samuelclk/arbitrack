@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.*.local
+
+node_modules/
+.pnpm-store/
+.next/
+dist/
+build/
+*.tsbuildinfo
+
+.DS_Store
+*.log
+.vercel/
+.fly/
